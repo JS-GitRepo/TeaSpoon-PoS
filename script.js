@@ -68,8 +68,7 @@ const coffeeClick = document.querySelector(".coffee-btn");
 const teaLatteClick = document.querySelector(".teaLatte-btn");
 const snackClick = document.querySelector(".snack-btn");
 const allItemsClick = document.querySelector(".snack-btn");
-const itemContainer = document.querySelector(".item-container");
-
+const itemsContainer = document.querySelector(".items-container");
 const cart = [];
 
 const displayProducts = (array, category) => {
@@ -82,9 +81,10 @@ const displayProducts = (array, category) => {
     const newDiv = document.createElement("div");
     const newImg = document.createElement("img");
     const newButton = document.createElement("button");
-
+    newDiv.textContent = "test";
     newDiv.classList.add("product");
-    newDiv.append(".items-container");
+    itemsContainer.append(newDiv);
+    console.log(product);
   });
 };
 displayProducts(products, "all");
