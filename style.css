@@ -1,13 +1,13 @@
 /* RESETS */
 
-
+body,
+main {
+  margin: 0;
+  padding: 0;
+}
 
 /* GENERAL */
 
-
-
 /* SPECIFICS */
-
-
 
 /* MEDIA QUERIES */
