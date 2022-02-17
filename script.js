@@ -60,3 +60,31 @@ const products = [
     price: 4.25,
   },
 ];
+
+//variables
+const categorySelection = document.querySelector(".category-selection");
+const teaClick = document.querySelector(".tea-btn");
+const coffeeClick = document.querySelector(".coffee-btn");
+const teaLatteClick = document.querySelector(".teaLatte-btn");
+const snackClick = document.querySelector(".snack-btn");
+const allItemsClick = document.querySelector(".snack-btn");
+const itemContainer = document.querySelector(".item-container");
+
+const cart = [];
+
+const displayProducts = (array, category) => {
+  const filtered =
+    category === "all"
+      ? array
+      : array.filter((item) => item.category === category);
+
+  filtered.forEach((product, i) => {
+    const newDiv = document.createElement("div");
+    const newImg = document.createElement("img");
+    const newButton = document.createElement("button");
+
+    newDiv.classList.add("product");
+    newDiv.append(".items-container");
+  });
+};
+displayProducts(products, "all");
