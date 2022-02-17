@@ -48,7 +48,7 @@ const products = [
     price: 4.25,
   },
   {
-    name: "Latte",
+    name: "latte",
     category: "coffee",
     description: "freshly prepared",
     price: 4.25,
@@ -58,6 +58,7 @@ const products = [
     category: "snack",
     description: "freshly prepared",
     price: 4.25,
+    // img: "assets/product-images/Chocolatechip-cookie.png"
   },
 ];
 
@@ -81,8 +82,9 @@ const displayProducts = (array, category) => {
     const newDiv = document.createElement("div");
     const newImg = document.createElement("img");
     const newButton = document.createElement("button");
-    newDiv.textContent = "test";
+    newImg.setAttribute("src", product.img);
     newDiv.classList.add("product");
+    newDiv.append(newImg);
     itemsContainer.append(newDiv);
     console.log(product);
   });
