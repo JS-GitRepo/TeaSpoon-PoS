@@ -144,6 +144,7 @@ const displayProducts = (array, category) => {
     divImg.classList.add("divImg");
     // Product Nameplate / Info Link
     divTitle.setAttribute("href", "#");
+    divTitle.setAttribute("data-name", product.name);
     divTitle.classList.add("divTitle");
     divTitle.textContent = product.name;
     // Add to Cart icon / link
@@ -155,7 +156,7 @@ const displayProducts = (array, category) => {
     divInfo.setAttribute("src", "assets/img/infoIcon.svg");
     // shows product decription
     divDesc.classList.add("divDesc");
-    //divDesc.classList.add("hide");
+    // divDesc.classList.add("hide");
     divDesc.setAttribute("data-name", product.name);
     divDesc.innerHTML += `${product.descName} <br />`;
     divDesc.innerHTML += `$${product.price.toFixed(2)} <br />`;
@@ -172,20 +173,30 @@ const displayProducts = (array, category) => {
 displayProducts(products, "all");
 
 itemsContainer.addEventListener("click", (e) => {
-  // Listens to item container for clicks on elements with ""divAddToCart" class
-  if (e.target.classList.contains("divAddToCart")) {
-    // Looks at the data-index of the plus button, then pushes the related object from the "products" index to the cart array
-    // const index = e.target.dataset.index;
-    // cart.push(products[index]);
-    // console.log(cart);
-
-    // Finds the product that matches the buttons data-name
-    const foundProduct = products.find((product) => {
+// Finds the product with a name that matches the button's data-name
+  const foundProduct = (array,target) => {
+    return products.find((product) => {
       return product.name === e.target.dataset.name;
     });
-    // console.log(foundProduct);
   }
+// Listens to item container for clicks on elements with "divAddToCart" class ; pushes item to cart if clicked
+  if (e.target.classList.contains("divAddToCart")) {
+    // Finds the product that matches the buttons data-name
+    cart.push(foundProduct(products,e.target.dataset.name));
+    console.log(cart);
+  }
+// Listens for clicks on "divTitle" and hides / unhides description
   if (e.target.classList.contains("divTitle")) {
-    e.divDesc.classList.toggle("hide");
+    let selected = e.target.parentNode.querySelector(".divDesc");
+    selected.classList.toggle("hide");
+    console.log(selected.classList);
+    // console.log(selected);
+    // console.log(nodeList);
+    // .find((node)=> {
+    //   return node.dataset.name === e.target.dataset.name;
+    // });
+    // console.log(nodeList);
+    // foundProduct();
+    // e.divDesc.classList.toggle("hide");
   }
 });
