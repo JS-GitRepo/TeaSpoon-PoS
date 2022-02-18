@@ -68,7 +68,7 @@ const products = [
     category: "latte",
     descName: "matcha latte",
     desc: "note: creamy, nori, sweet, rich",
-    img: "assets/img/matchaTea.png",
+    img: "assets/img/matchaLatte.png",
     price: 5,
   },
   {

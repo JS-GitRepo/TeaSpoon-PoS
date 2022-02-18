@@ -79,18 +79,30 @@ ul {
   width: 95%;
 }
 
+.items-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.product {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  /* width: 100px;
+  height: 100px; */
+  border: 2px dashed black;
+}
+
+.productImg {
+  max-width: 150px;
+}
+
 footer {
   position: fixed;
   bottom: 0px;
   background-color: #e5e5e5;
   width: 100vw;
   text-align: center;
-}
-
-.product {
-  width: 100px;
-  height: 100px;
-  border: 2px dashed black;
 }
 
 /* MEDIA QUERIES */
