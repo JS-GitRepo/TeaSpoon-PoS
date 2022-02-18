@@ -18,7 +18,9 @@ body {
   /*it's main textcolor
   /* position: relative; */
 }
-
+.hide {
+  display: none;
+}
 /* SPECIFICS */
 header {
   position: fixed;

@@ -155,6 +155,7 @@ const displayProducts = (array, category) => {
     divInfo.setAttribute("src", "assets/img/infoIcon.svg");
     // shows product decription
     divDesc.classList.add("divDesc");
+    //divDesc.classList.add("hide");
     divDesc.setAttribute("data-name", product.name);
     divDesc.innerHTML += `${product.descName} <br />`;
     divDesc.innerHTML += `$${product.price.toFixed(2)} <br />`;
@@ -185,6 +186,6 @@ itemsContainer.addEventListener("click", (e) => {
     // console.log(foundProduct);
   }
   if (e.target.classList.contains("divTitle")) {
-    const infoP = document.createElement("p");
+    e.divDesc.classList.toggle("hide");
   }
 });
