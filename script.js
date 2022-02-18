@@ -2,14 +2,19 @@ const products = [
   {
     name: "green",
     category: "tea",
+<<<<<<< HEAD
     descName: "green tea",
     desc: "note: fresh, rich, sweet",
     img: "assets/img/greenTea.png",
+=======
+    description: "freshly prepared",
+>>>>>>> b0fa49a575003021236462ad5f6d58264c16b2c9
     price: 3.5,
   },
   {
     name: "black",
     category: "tea",
+<<<<<<< HEAD
     descName: "black tea",
     desc: "note: dark, caramel, thick",
     img: "assets/img/blackTea.png",
@@ -38,18 +43,46 @@ const products = [
     desc: "note: cotton candy, smooth, sweet",
     img: "assets/img/oolongTea.png",
     price: 4.50,
+=======
+    description: "freshly prepared",
+    price: 3.5,
+  },
+  {
+    name: "oolong",
+    category: "tea",
+    description: "freshly prepared",
+    price: 4.5,
+>>>>>>> b0fa49a575003021236462ad5f6d58264c16b2c9
   },
   {
     name: "herbal",
     category: "tea",
+<<<<<<< HEAD
     descName: "herbal tea",
     desc: "note: sweet, hibiscus, raspberry",
     img: "assets/img/herbalTea.png",
     price: 3.50,
+=======
+    description: "freshly prepared",
+    price: 4.25,
+  },
+  {
+    name: "flower",
+    category: "tea",
+    description: "freshly prepared",
+    price: 4.25,
+  },
+  {
+    name: "chai",
+    category: "tea",
+    description: "freshly prepared",
+    price: 4.25,
+>>>>>>> b0fa49a575003021236462ad5f6d58264c16b2c9
   },
   {
     name: "matcha",
     category: "tea",
+<<<<<<< HEAD
     descName: "matcha tea",
     desc: "note: nori, sweet, rich",
     img: "assets/img/matchaTea.png",
@@ -110,6 +143,29 @@ const products = [
     desc: "note: cookies, cream, donut!",
     img: "assets/img/cncDonut.png",
     price: 2,
+=======
+    description: "freshly prepared",
+    price: 4.25,
+  },
+  {
+    name: "coffee",
+    category: "coffee",
+    description: "freshly prepared",
+    price: 4.25,
+  },
+  {
+    name: "latte",
+    category: "coffee",
+    description: "freshly prepared",
+    price: 4.25,
+  },
+  {
+    name: "chocolate cookie",
+    category: "snack",
+    description: "freshly prepared",
+    price: 4.25,
+    // img: "assets/product-images/Chocolatechip-cookie.png"
+>>>>>>> b0fa49a575003021236462ad5f6d58264c16b2c9
   },
 ];
 
