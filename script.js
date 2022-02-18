@@ -148,7 +148,8 @@ const displayProducts = (array, category) => {
     // Add to Cart icon / link
     divAddToCart.classList.add("plusToCart");
     divAddToCart.setAttribute("src", "assets/img/plusSign.svg");
-    //info icon
+    divAddToCart.setAttribute("data-index", i);
+    // Info icon
     divInfo.classList.add("productInfo");
     divInfo.setAttribute("src", "assets/img/infoIcon.svg");
     // Appends these things to product, then appends product to .items-container
@@ -160,3 +161,14 @@ const displayProducts = (array, category) => {
   });
 };
 displayProducts(products, "all");
+
+
+itemsContainer.addEventListener("click",(e)=> {
+// Listens to item container for clicks on elements with ".plusToCart" class
+  if (e.target.classList.contains("plusToCart")) {
+// Looks at the data-index of the plus button, then pushes the related object from the "products" index to the cart array
+    const index = e.target.dataset.index;
+    cart.push(products[index]);
+    // console.log(cart);
+  }
+});
