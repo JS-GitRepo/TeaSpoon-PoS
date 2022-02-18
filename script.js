@@ -136,39 +136,55 @@ const displayProducts = (array, category) => {
     const divTitle = document.createElement("a");
     const divAddToCart = document.createElement("img");
     const divInfo = document.createElement("img");
+    const divDesc = document.createElement("p");
 
     newDiv.classList.add("product");
     // Products Main image
     divImg.setAttribute("src", product.img);
-    divImg.classList.add("productImg");
+    divImg.classList.add("divImg");
     // Product Nameplate / Info Link
     divTitle.setAttribute("href", "#");
-    divTitle.classList.add("productTitle");
+    divTitle.classList.add("divTitle");
     divTitle.textContent = product.name;
     // Add to Cart icon / link
-    divAddToCart.classList.add("plusToCart");
+    divAddToCart.classList.add("divAddToCart");
     divAddToCart.setAttribute("src", "assets/img/plusSign.svg");
-    divAddToCart.setAttribute("data-index", i);
+    divAddToCart.setAttribute("data-name", product.name);
     // Info icon
-    divInfo.classList.add("productInfo");
+    divInfo.classList.add("divInfo");
     divInfo.setAttribute("src", "assets/img/infoIcon.svg");
+    // shows product decription
+    divDesc.classList.add("divDesc");
+    divDesc.setAttribute("data-name", product.name);
+    divDesc.innerHTML += `${product.descName} <br />`;
+    divDesc.innerHTML += `$${product.price.toFixed(2)} <br />`;
+    divDesc.innerHTML += `${product.desc} <br />`;
     // Appends these things to product, then appends product to .items-container
     newDiv.append(divImg);
     newDiv.append(divAddToCart);
     newDiv.append(divInfo);
     newDiv.append(divTitle);
+    newDiv.append(divDesc);
     itemsContainer.append(newDiv);
   });
 };
 displayProducts(products, "all");
 
-
-itemsContainer.addEventListener("click",(e)=> {
-// Listens to item container for clicks on elements with ".plusToCart" class
-  if (e.target.classList.contains("plusToCart")) {
-// Looks at the data-index of the plus button, then pushes the related object from the "products" index to the cart array
-    const index = e.target.dataset.index;
-    cart.push(products[index]);
+itemsContainer.addEventListener("click", (e) => {
+  // Listens to item container for clicks on elements with ""divAddToCart" class
+  if (e.target.classList.contains("divAddToCart")) {
+    // Looks at the data-index of the plus button, then pushes the related object from the "products" index to the cart array
+    // const index = e.target.dataset.index;
+    // cart.push(products[index]);
     // console.log(cart);
+
+    // Finds the product that matches the buttons data-name
+    const foundProduct = products.find((product) => {
+      return product.name === e.target.dataset.name;
+    });
+    // console.log(foundProduct);
+  }
+  if (e.target.classList.contains("divTitle")) {
+    const infoP = document.createElement("p");
   }
 });
