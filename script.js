@@ -37,7 +37,7 @@ const products = [
     descName: "oolong tea",
     desc: "note: cotton candy, smooth, sweet",
     img: "assets/img/oolongTea.png",
-    price: 4.50,
+    price: 4.5,
   },
   {
     name: "herbal",
@@ -45,7 +45,7 @@ const products = [
     descName: "herbal tea",
     desc: "note: sweet, hibiscus, raspberry",
     img: "assets/img/herbalTea.png",
-    price: 3.50,
+    price: 3.5,
   },
   {
     name: "matcha",
@@ -125,7 +125,8 @@ const cart = [];
 
 // Function that displays products in .item-container. Checks to see if the category is "all" (which is default) and if not it filters items by the category selected. This is all built and then appended to .items-container.
 const displayProducts = (array, category) => {
-  const filtered = (category === "all")
+  const filtered =
+    category === "all"
       ? array
       : array.filter((item) => item.category === category);
 
@@ -133,20 +134,27 @@ const displayProducts = (array, category) => {
     const newDiv = document.createElement("div");
     const divImg = document.createElement("img");
     const divTitle = document.createElement("a");
-    const divAddToCart = document.createElement("span")
+    const divAddToCart = document.createElement("img");
+    const divInfo = document.createElement("img");
+
     newDiv.classList.add("product");
-// Products Main image
+    // Products Main image
     divImg.setAttribute("src", product.img);
-    divImg.classList.add("productImg")
-// Product Nameplate / Info Link
-    divTitle.setAttribute("href","#")
-    divTitle.classList.add("productTitle")
+    divImg.classList.add("productImg");
+    // Product Nameplate / Info Link
+    divTitle.setAttribute("href", "#");
+    divTitle.classList.add("productTitle");
     divTitle.textContent = product.name;
-// Add to Cart icon / link
-    divAddToCart.classList.add("material-icons-outlined")
-    divAddToCart.textContent = "add";
-// Appends these things to product, then appends product to .items-container
+    // Add to Cart icon / link
+    divAddToCart.classList.add("plusToCart");
+    divAddToCart.setAttribute("src", "assets/img/plusSign.svg");
+    //info icon
+    divInfo.classList.add("productInfo");
+    divInfo.setAttribute("src", "assets/img/infoIcon.svg");
+    // Appends these things to product, then appends product to .items-container
     newDiv.append(divImg);
+    newDiv.append(divAddToCart);
+    newDiv.append(divInfo);
     newDiv.append(divTitle);
     itemsContainer.append(newDiv);
   });
