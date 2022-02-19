@@ -113,7 +113,6 @@ const products = [
   },
 ];
 
-
 //Variables
 const categorySelection = document.querySelector(".category-selection");
 const teaClick = document.querySelector(".tea-btn");
@@ -122,8 +121,9 @@ const teaLatteClick = document.querySelector(".teaLatte-btn");
 const snackClick = document.querySelector(".snack-btn");
 const allItemsClick = document.querySelector(".snack-btn");
 const itemsContainer = document.querySelector(".items-container");
+const cartContainer = document.querySelector(".cart-container");
+const cartItemsDiv = document.querySelector(".cart-items-div");
 const cart = [];
-
 
 // Function that displays products in .item-container. Checks to see if the category is "all" (which is default) and if not it filters items by the category selected. This is all built and then appended to .items-container.
 const displayProducts = (array, category) => {
@@ -176,13 +176,11 @@ const displayProducts = (array, category) => {
 };
 displayProducts(products, "all");
 
-
-
-// Click events on products 
+// Click events on products
 itemsContainer.addEventListener("click", (e) => {
   e.preventDefault();
   // Finds the product with a name that matches the button's data-name
-  const foundProduct = (array, target) => {
+  const foundProduct = () => {
     return products.find((product) => {
       return product.name === e.target.dataset.name;
     });
@@ -190,25 +188,34 @@ itemsContainer.addEventListener("click", (e) => {
   // Listens to item container for clicks on elements with "divAddToCart" class ; pushes item to cart if clicked
   if (e.target.classList.contains("divAddToCart")) {
     // Finds the product that matches the buttons data-name
-    cart.push(foundProduct(products, e.target.dataset.name));
+    cart.push(foundProduct());
     console.log(cart);
+    openCart();
+    printToCart();
   }
   // Listens for clicks on divTitle / divInfo and hides / unhides description
-  if (e.target.classList.contains("divTitle") 
-    || e.target.classList.contains("divInfo")) {
+  if (
+    e.target.classList.contains("divTitle") ||
+    e.target.classList.contains("divInfo")
+  ) {
     let selected = e.target.parentNode.querySelector(".divDesc");
     selected.classList.remove("hide");
     console.log(selected.classList);
   }
-// Adds hide class back in when description is clicked
+  // Adds hide class back in when description is clicked
   if (e.target.classList.contains("divDesc")) {
     let selected = e.target.parentNode.querySelector(".divDesc");
     selected.classList.add("hide");
   }
 });
 
-
 // Shopping Cart
 const openCart = () => {
-  
-}
+  if (cart.length > 0) {
+    cartContainer.classList.remove("hide");
+  }
+};
+const printToCart = (i) => {
+  const newP = `${cart[i].name}: $${cart[i].price.toFixed(2)}`;
+  cartItemsDiv.append(newP);
+};
