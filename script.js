@@ -185,12 +185,16 @@ itemsContainer.addEventListener("click", (e) => {
       return product.name === e.target.dataset.name;
     });
   };
-  // Listens to item container for clicks on elements with "divAddToCart" class ; pushes item to cart if clicked
+// Listens to item container for clicks on elements with "divAddToCart" class ; pushes item to cart if clicked
   if (e.target.classList.contains("divAddToCart")) {
     // Finds the product that matches the buttons data-name
     cart.push(foundProduct());
     console.log(cart);
     openCart();
+// While there is a "first child" in cartIemsDiv, remove it 
+    while (cartItemsDiv.firstChild){
+      cartItemsDiv.removeChild(cartItemsDiv.firstChild);
+    }
     printToCart();
   }
   // Listens for clicks on divTitle / divInfo and hides / unhides description
@@ -215,7 +219,11 @@ const openCart = () => {
     cartContainer.classList.remove("hide");
   }
 };
-const printToCart = (i) => {
-  const newP = `${cart[i].name}: $${cart[i].price.toFixed(2)}`;
-  cartItemsDiv.append(newP);
+const printToCart = () => {
+  cart.forEach((item,i)=> {
+    const newString = `${cart[i].name}: $${cart[i].price.toFixed(2)}`;
+    const newP = document.createElement("p");
+    newP.append(newString);
+    cartItemsDiv.append(newP);
+  })
 };
