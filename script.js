@@ -60,7 +60,7 @@ const products = [
     category: "latte",
     descName: "chai latte",
     desc: "note: creamy, rich, spice, cinnamon",
-    img: "assets/img/chaiTea.png",
+    img: "assets/img/chaiLatte.png",
     price: 5,
   },
   {
@@ -156,11 +156,13 @@ const displayProducts = (array, category) => {
     divInfo.setAttribute("src", "assets/img/infoIcon.svg");
     // shows product decription
     divDesc.classList.add("divDesc");
-    // divDesc.classList.add("hide");
+    divDesc.classList.add("hide");
     divDesc.setAttribute("data-name", product.name);
     divDesc.innerHTML += `${product.descName} <br />`;
     divDesc.innerHTML += `$${product.price.toFixed(2)} <br />`;
     divDesc.innerHTML += `${product.desc} <br />`;
+    // console.log(divDesc);
+
     // Appends these things to product, then appends product to .items-container
     newDiv.append(divImg);
     newDiv.append(divAddToCart);
@@ -173,22 +175,23 @@ const displayProducts = (array, category) => {
 displayProducts(products, "all");
 
 itemsContainer.addEventListener("click", (e) => {
-// Finds the product with a name that matches the button's data-name
-  const foundProduct = (array,target) => {
+  e.preventDefault();
+  // Finds the product with a name that matches the button's data-name
+  const foundProduct = (array, target) => {
     return products.find((product) => {
       return product.name === e.target.dataset.name;
     });
-  }
-// Listens to item container for clicks on elements with "divAddToCart" class ; pushes item to cart if clicked
+  };
+  // Listens to item container for clicks on elements with "divAddToCart" class ; pushes item to cart if clicked
   if (e.target.classList.contains("divAddToCart")) {
     // Finds the product that matches the buttons data-name
-    cart.push(foundProduct(products,e.target.dataset.name));
+    cart.push(foundProduct(products, e.target.dataset.name));
     console.log(cart);
   }
-// Listens for clicks on "divTitle" and hides / unhides description
+  // Listens for clicks on "divTitle" and hides / unhides description
   if (e.target.classList.contains("divTitle")) {
     let selected = e.target.parentNode.querySelector(".divDesc");
-    selected.classList.toggle("hide");
+    selected.classList.remove("hide");
     console.log(selected.classList);
     // console.log(selected);
     // console.log(nodeList);
@@ -198,5 +201,15 @@ itemsContainer.addEventListener("click", (e) => {
     // console.log(nodeList);
     // foundProduct();
     // e.divDesc.classList.toggle("hide");
+  }
+
+  if (e.target.classList.contains("divInfo")) {
+    let selected = e.target.parentNode.querySelector(".divDesc");
+    selected.classList.remove("hide");
+  }
+
+  if (e.target.classList.contains("divDesc")) {
+    let selected = e.target.parentNode.querySelector(".divDesc");
+    selected.classList.add("hide");
   }
 });

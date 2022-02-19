@@ -14,35 +14,38 @@ body {
   flex-direction: column; */
   font-family: "Yrsa", serif;
   height: 100vh;
-  color: #515151;
+  color: #22211f;
   /*it's main textcolor
   /* position: relative; */
 }
 .hide {
-  display: none;
+  display: none !important;
 }
+
 /* SPECIFICS */
 header {
   position: fixed;
-  display: flex;
-  justify-content: left;
   top: 0;
   right: 0;
   left: 0;
   padding: 20px 30px;
-  border-bottom: #e5e5e5 1px solid;
+  border-bottom: #e5e5e5 3px solid;
   color: #6a6861;
   background-color: white;
+  z-index: 4;
+}
+.header-logo {
+  display: flex;
+}
+
+.header-logo img {
+  width: 28px;
+  transform: rotate(-48deg);
 }
 
 h1 {
-  font-family: "Zen Tokyo Zoo", cursive;
+  font-family: "Megrim", cursive;
 }
-/* .header-logo {
-  display: flex;
-  flex-direction: row;
-  padding: 0 30px;
-} */
 
 main {
   margin-top: 100px;
@@ -57,20 +60,21 @@ ul {
   flex-wrap: wrap;
   justify-content: space-around;
 }
+
 .category-list {
   list-style-type: none;
-  width: 45%;
+  width: 48%;
   height: 50px;
   margin-top: 10px;
 }
 
 .category-list a {
   background-color: white;
-  border: #c4c4c4 solid 1px;
+  border: #e5e5e5 solid 2px;
   width: 100%;
   height: 100%;
   color: #6a6861;
-  font-size: 24px;
+  font-size: 28px;
   text-decoration: none;
   display: flex;
   justify-content: center;
@@ -78,25 +82,120 @@ ul {
 }
 
 .allItems-li {
-  width: 95%;
+  width: 98%;
 }
 
 .items-container {
   display: flex;
+  justify-content: space-around;
   flex-wrap: wrap;
+  padding: 40px 20px;
 }
 
 .product {
   display: flex;
-  align-items: center;
   flex-direction: column;
-  /* width: 100px;
-  height: 100px; */
-  border: 2px dashed black;
+  align-items: center;
+  margin-bottom: 30px;
+  width: 240px;
+  height: 240px;
+  border: 1px solid #c4c4c4;
+  position: relative;
 }
 
 .divImg {
   max-width: 150px;
+}
+
+.divInfo {
+  width: 18px;
+  position: absolute;
+  bottom: 45px;
+  right: 40px;
+  z-index: 1;
+}
+
+.divTitle {
+  text-decoration: none;
+  color: #515151;
+  font-size: 24px;
+  width: 180px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: 40px;
+}
+
+.divDesc {
+  background: rgba(229, 229, 229, 0.88);
+  width: 200px;
+  height: 200px;
+  line-height: 30px;
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: absolute;
+  margin: 0;
+  padding: 20px;
+  z-index: 2;
+}
+
+.divAddToCart {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 40px;
+  z-index: 3;
+}
+
+/* Referring data attribute(each divTitle) */
+.divTitle[data-name="green"] {
+  background-color: #c2d3b5;
+}
+
+.divTitle[data-name="black"] {
+  background-color: #e8a88d;
+}
+
+.divTitle[data-name="flower"] {
+  background-color: #f0efd1;
+}
+.divTitle[data-name="chai"] {
+  background-color: #e4aeae;
+}
+.divTitle[data-name="oolong"] {
+  background-color: #d6c896;
+}
+.divTitle[data-name="herbal"] {
+  background-color: #c9afd5;
+}
+.divTitle[data-name="matcha"] {
+  background-color: #7d9c6e;
+}
+.divTitle[data-name="chai latte"] {
+  background-color: #e8a88d;
+}
+.divTitle[data-name="matcha latte"] {
+  background-color: #caa46c;
+}
+.divTitle[data-name="latte"] {
+  background-color: #caa46c;
+}
+.divTitle[data-name="hot coffee"] {
+  background-color: #c29871;
+}
+.divTitle[data-name="cold coffee"] {
+  background-color: #fed291;
+}
+.divTitle[data-name="cookie"] {
+  background-color: #e6e88d;
+}
+.divTitle[data-name="donut"] {
+  background-color: #bbc2e6;
 }
 
 footer {
@@ -105,6 +204,7 @@ footer {
   background-color: #e5e5e5;
   width: 100vw;
   text-align: center;
+  z-index: 4;
 }
 
 /* MEDIA QUERIES */
