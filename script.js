@@ -113,6 +113,7 @@ const products = [
   },
 ];
 
+
 //Variables
 const categorySelection = document.querySelector(".category-selection");
 const teaClick = document.querySelector(".tea-btn");
@@ -122,6 +123,7 @@ const snackClick = document.querySelector(".snack-btn");
 const allItemsClick = document.querySelector(".snack-btn");
 const itemsContainer = document.querySelector(".items-container");
 const cart = [];
+
 
 // Function that displays products in .item-container. Checks to see if the category is "all" (which is default) and if not it filters items by the category selected. This is all built and then appended to .items-container.
 const displayProducts = (array, category) => {
@@ -174,6 +176,9 @@ const displayProducts = (array, category) => {
 };
 displayProducts(products, "all");
 
+
+
+// Click events on products 
 itemsContainer.addEventListener("click", (e) => {
   e.preventDefault();
   // Finds the product with a name that matches the button's data-name
@@ -188,28 +193,22 @@ itemsContainer.addEventListener("click", (e) => {
     cart.push(foundProduct(products, e.target.dataset.name));
     console.log(cart);
   }
-  // Listens for clicks on "divTitle" and hides / unhides description
-  if (e.target.classList.contains("divTitle")) {
+  // Listens for clicks on divTitle / divInfo and hides / unhides description
+  if (e.target.classList.contains("divTitle") 
+    || e.target.classList.contains("divInfo")) {
     let selected = e.target.parentNode.querySelector(".divDesc");
     selected.classList.remove("hide");
     console.log(selected.classList);
-    // console.log(selected);
-    // console.log(nodeList);
-    // .find((node)=> {
-    //   return node.dataset.name === e.target.dataset.name;
-    // });
-    // console.log(nodeList);
-    // foundProduct();
-    // e.divDesc.classList.toggle("hide");
   }
-
-  if (e.target.classList.contains("divInfo")) {
-    let selected = e.target.parentNode.querySelector(".divDesc");
-    selected.classList.remove("hide");
-  }
-
+// Adds hide class back in when description is clicked
   if (e.target.classList.contains("divDesc")) {
     let selected = e.target.parentNode.querySelector(".divDesc");
     selected.classList.add("hide");
   }
 });
+
+
+// Shopping Cart
+const openCart = () => {
+  
+}
