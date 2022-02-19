@@ -226,6 +226,11 @@ footer {
   justify-content: space-between;
 }
 
+.cart-button-container {
+  display: flex;
+  justify-content: space-evenly;
+}
+
 /* .cart-container p {
   box-sizing: border-box;
   margin: 10px;
