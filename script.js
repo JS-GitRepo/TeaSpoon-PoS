@@ -124,7 +124,8 @@ const itemsContainer = document.querySelector(".items-container");
 const cartContainer = document.querySelector(".cart-container");
 const cartItemsDiv = document.querySelector(".cart-items-div");
 const cartTotalsDiv = document.querySelector(".cart-totals-div");
-const cart = [];
+const checkoutContainer = document.querySelector(".checkout-container");
+let cart = [];
 
 // Product Category filters / selection
 
@@ -229,6 +230,21 @@ itemsContainer.addEventListener("click", (e) => {
   }
 });
 
+// Cancel Button Events
+cartContainer.addEventListener("click",(e)=> {
+  if(e.target.classList.contains("cancel-btn")) {
+    cart = [];
+    cartContainer.classList.add("hide");
+  }
+  if(e.target.classList.contains("checkout-btn")) {
+    checkoutContainer.classList.remove("hide");
+    console.log(checkoutContainer.classList);
+  }
+})
+// Checkout event listener 
+
+
+// Functions
 // Function to opens shopping Cart
 const openCart = () => {
   if (cart.length > 0) {
