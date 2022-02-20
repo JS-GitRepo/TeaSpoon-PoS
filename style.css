@@ -35,7 +35,7 @@ header {
   border-bottom: #e5e5e5 2px solid;
   color: #6a6861;
   background-color: white;
-  z-index: 4;
+  z-index: 100;
 }
 .header-logo {
   display: flex;
@@ -283,7 +283,7 @@ footer {
   background-color: #e5e5e5;
   width: 100vw;
   text-align: center;
-  z-index: 4;
+  z-index: 100;
 }
 
 .cart-container {
@@ -306,9 +306,12 @@ footer {
 .cart-contents-container {
   display: flex;
   flex-direction: row;
+  flex: 1;
   justify-content: space-between;
+  align-items: center;
   margin-bottom: 10px;
   font-size: 18px;
+  height: 100%;
 }
 
 .cart-items-div {
@@ -323,9 +326,10 @@ footer {
 
 .cart-totals-div {
   text-align: end;
-  position: fixed;
+  /* position: fixed; */
   right: 18px;
   bottom: 100px;
+  max-height: 70px;
 }
 
 /* used nth-child */
@@ -344,6 +348,7 @@ footer {
   font-family: "Yrsa", serif;
   font-size: 18px;
   border: none;
+  margin: 2px;
 }
 
 .cancel-btn {
@@ -357,11 +362,17 @@ footer {
 }
 
 .checkout-container {
-  display: flex;
+  display: inline-block;
   position: fixed;
-  height: 100px;
-  width: 100px;
-  background-color: rgba(0, 0, 0, 0.5);
+  top: 0px;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 5;
+}
+
+.payment-method-div {
+  flex: 3;
 }
 
 /* MEDIA QUERIES */

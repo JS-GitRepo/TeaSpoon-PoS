@@ -113,7 +113,7 @@ const products = [
   },
 ];
 
-//Variables
+//// >>>>>>>>>>>>>>>>>>>>>>>> Variables <<<<<<<<<<<<<<<<<<<<<<<<
 const categorySelection = document.querySelector(".category-selection");
 const teaClick = document.querySelector(".tea-btn");
 const coffeeClick = document.querySelector(".coffee-btn");
@@ -124,10 +124,14 @@ const itemsContainer = document.querySelector(".items-container");
 const cartContainer = document.querySelector(".cart-container");
 const cartItemsDiv = document.querySelector(".cart-items-div");
 const cartTotalsDiv = document.querySelector(".cart-totals-div");
+const cartBtnContainer = document.querySelector(".cart-button-container");
 const checkoutContainer = document.querySelector(".checkout-container");
+const paymentMethodDiv = cartContainer.querySelector(".payment-method-div");
+
 let cart = [];
 
-// Product Category filters / selection
+
+// // >>>>>>>>>>>>>>>>>>>>>>>> Display Products <<<<<<<<<<<<<<<<<<<<<<<<
 
 // Function that displays products in .item-container. Checks to see if the category is "all" (which is default) and if not it filters items by the category selected. This is all built and then appended to .items-container.
 const displayProducts = (array, category) => {
@@ -180,8 +184,9 @@ const displayProducts = (array, category) => {
 };
 displayProducts(products, "all items");
 
-// Click Events
 
+
+// >>>>>>>>>>>>>>>>>>>>>>>> Click Events <<<<<<<<<<<<<<<<<<<<<<<<
 // Product Category Filters / Selection
 categorySelection.addEventListener("click", (e) => {
   if (e.target.classList.contains("cat-btn")) {
@@ -202,7 +207,7 @@ itemsContainer.addEventListener("click", (e) => {
       return product.name === e.target.dataset.name;
     });
   };
-  // Listens to item container for clicks on elements with "divAddToCart" class ; pushes item to cart if clicked
+    // Listens to item container for clicks on elements with "divAddToCart" class ; pushes item to cart if clicked
   if (e.target.classList.contains("divAddToCart")) {
     // Finds the product that matches the buttons data-name
     cart.unshift(foundProduct());
@@ -230,22 +235,31 @@ itemsContainer.addEventListener("click", (e) => {
   }
 });
 
-// Cancel Button Events
+// Cart Button Events
 cartContainer.addEventListener("click",(e)=> {
   if(e.target.classList.contains("cancel-btn")) {
-    cart = [];
-    cartContainer.classList.add("hide");
+    // cart = [];
+    // cartContainer.classList.add("hide");
+    // checkoutContainer.classList.add("hide");
+    location.reload();
   }
   if(e.target.classList.contains("checkout-btn")) {
-    checkoutContainer.classList.remove("hide");
-    console.log(checkoutContainer.classList);
+    if(e.target.textContent === "checkout") {
+      checkoutContainer.classList.remove("hide");
+      cartToCheckout();
+    } else if (e.target.textContent === "cash") {
+      paymentCheckout();
+      cashCheckout();
+      console.log("Test");
+    }
   }
 })
 // Checkout event listener 
 
 
-// Functions
-// Function to opens shopping Cart
+
+// >>>>>>>>>>>>>>>>>>>>>>>> Functions <<<<<<<<<<<<<<<<<<<<<<<<
+// Opens / unhides shopping cart
 const openCart = () => {
   if (cart.length > 0) {
     cartContainer.classList.remove("hide");
@@ -260,12 +274,13 @@ const printToCart = () => {
     cartItemsDiv.append(newP);
   });
 };
-// Function to clear the contents of a given container
+// Clears contents of a given container 
 const clearContainerContents = (container) => {
   while (container.firstChild) {
     container.removeChild(container.firstChild);
   }
 };
+// Calculates and inserts cart totals 
 const calcTotal = () => {
   let subTotal = cart.reduce((pv, cv) => pv + cv.price, 0);
   const taxTotal = subTotal * 0.06;
@@ -286,3 +301,33 @@ const calcTotal = () => {
   grandTotalP.append(grandTotalString);
   cartTotalsDiv.append(grandTotalP);
 };
+// Modifies cart for checkout screen
+const cartToCheckout = () => {
+  cartContainer.style.height = "400px";
+  cartItemsDiv.style.maxHeight = "300px";
+  let newBtn = document.createElement("button")
+  newBtn.style.backgroundColor = "#215B72";
+  newBtn.style.color = "#e5e5e5";
+  newBtn.textContent = "card";
+  cartBtnContainer.querySelector(".checkout-btn").textContent = "cash";
+  cartBtnContainer.append(newBtn);
+}
+const paymentCheckout = () => {
+  cartItemsDiv.style.maxHeight = "70px";
+  paymentMethodDiv.classList.remove("hide");
+}
+const cashCheckout = () => {
+  const newCashInput = document.createElement("input");
+  const newCashLabel = document.createElement("label");
+  newCashInput.setAttribute("id","cashPay");
+  newCashInput.setAttribute("name","cashPay");
+  newCashInput.setAttribute("type","number");
+  newCashInput.setAttribute("min","0.00");
+  newCashInput.setAttribute("max","10000.00");
+  newCashInput.setAttribute("step","0.01");
+  newCashInput.setAttribute("placeholder","$0.00");
+  newCashLabel.setAttribute("for","cashPay");
+  newCashLabel.textContent = "Cash Payment Amount:";
+  paymentMethodDiv.append(newCashInput);
+  paymentMethodDiv.append(newCashLabel);
+}
