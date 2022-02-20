@@ -126,10 +126,12 @@ const cartItemsDiv = document.querySelector(".cart-items-div");
 const cartTotalsDiv = document.querySelector(".cart-totals-div");
 const cart = [];
 
+// Product Category filters / selection
+
 // Function that displays products in .item-container. Checks to see if the category is "all" (which is default) and if not it filters items by the category selected. This is all built and then appended to .items-container.
 const displayProducts = (array, category) => {
   const filtered =
-    category === "all"
+    category === "all items"
       ? array
       : array.filter((item) => item.category === category);
 
@@ -175,9 +177,24 @@ const displayProducts = (array, category) => {
     itemsContainer.append(newDiv);
   });
 };
-displayProducts(products, "all");
+displayProducts(products, "all items");
 
-// Click events on products
+
+
+// Click Events
+
+// Product Category Filters / Selection
+categorySelection.addEventListener("click",(e) => {
+  if (e.target.classList.contains("cat-btn")) {
+    let clickedCategory = e.target.innerText;
+    clearContainerContents(itemsContainer);
+    displayProducts(products,clickedCategory.toLowerCase());
+    console.log(clickedCategory);
+  }
+  console.dir(e);
+})
+
+// Individual Product Click Events
 itemsContainer.addEventListener("click", (e) => {
   e.preventDefault();
   // Finds the product with a name that matches the button's data-name
@@ -193,12 +210,8 @@ itemsContainer.addEventListener("click", (e) => {
     console.log(cart);
     openCart();
     // While there is a "first child" in cartIemsDiv, remove it
-    while (cartItemsDiv.firstChild) {
-      cartItemsDiv.removeChild(cartItemsDiv.firstChild);
-    }
-    while (cartTotalsDiv.firstChild) {
-      cartTotalsDiv.removeChild(cartTotalsDiv.firstChild);
-    }
+    clearContainerContents(cartItemsDiv);
+    clearContainerContents(cartTotalsDiv);
     printToCart();
     calcTotal();
   }
@@ -218,12 +231,13 @@ itemsContainer.addEventListener("click", (e) => {
   }
 });
 
-// Shopping Cart
+// Function to opens shopping Cart
 const openCart = () => {
   if (cart.length > 0) {
     cartContainer.classList.remove("hide");
   }
 };
+// Prints users cart items to "cartItemsDiv"
 const printToCart = () => {
   cart.forEach((item, i) => {
     const newString = `${cart[i].name}: $${cart[i].price.toFixed(2)}`;
@@ -232,13 +246,16 @@ const printToCart = () => {
     cartItemsDiv.append(newP);
   });
 };
+// Function to clear the contents of a given container
+const clearContainerContents = (container) => {
+  while (container.firstChild) {
+    container.removeChild(container.firstChild);
+  }
+}
 const calcTotal = () => {
   let subTotal = cart.reduce((pv, cv) => pv + cv.price, 0);
-  //console.log(subTotal);
   const taxTotal = subTotal * 0.06;
-  //console.log(taxTotal.toFixed(2));
   const grandTotal = subTotal + taxTotal;
-  //console.log(grandTotal);
 
   const subTotalString = `Sub-Total: $${subTotal.toFixed(2)}`;
   const subTotalP = document.createElement("p");
