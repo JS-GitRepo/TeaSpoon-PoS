@@ -10,14 +10,12 @@ main ul {
 
 /* GENERAL */
 body {
-  /* display: flex;
-  flex-direction: column; */
   font-family: "Yrsa", serif;
-  height: 100vh;
   color: #22211f;
   /*it's main textcolor
   /* position: relative; */
 }
+
 .hide {
   display: none !important;
 }
@@ -39,12 +37,15 @@ header {
 }
 
 .header-logo img {
+  filter: invert(43%) sepia(2%) saturate(1361%) hue-rotate(9deg) brightness(90%)
+    contrast(81%);
   width: 28px;
   transform: rotate(-48deg);
 }
 
 h1 {
   font-family: "Megrim", cursive;
+  font-weight: 1000;
 }
 
 main {
@@ -90,6 +91,7 @@ ul {
   justify-content: space-around;
   flex-wrap: wrap;
   padding: 40px 20px;
+  margin-bottom: 150px;
 }
 
 .product {
@@ -153,6 +155,77 @@ ul {
   z-index: 3;
 }
 
+/*colors on Plus image*/
+.divAddToCart[data-name="green"] {
+  filter: invert(89%) sepia(23%) saturate(215%) hue-rotate(51deg)
+    brightness(92%) contrast(85%);
+}
+
+.divAddToCart[data-name="black"] {
+  filter: invert(90%) sepia(48%) saturate(6417%) hue-rotate(297deg)
+    brightness(100%) contrast(82%);
+}
+
+.divAddToCart[data-name="flower"] {
+  filter: invert(96%) sepia(8%) saturate(1503%) hue-rotate(3deg) brightness(95%)
+    contrast(88%);
+}
+
+.divAddToCart[data-name="chai"] {
+  filter: invert(99%) sepia(20%) saturate(4680%) hue-rotate(290deg)
+    brightness(102%) contrast(78%);
+}
+
+.divAddToCart[data-name="oolong"] {
+  filter: invert(90%) sepia(26%) saturate(446%) hue-rotate(353deg)
+    brightness(89%) contrast(86%);
+}
+
+.divAddToCart[data-name="herbal"] {
+  filter: invert(81%) sepia(20%) saturate(371%) hue-rotate(234deg)
+    brightness(89%) contrast(86%);
+}
+
+.divAddToCart[data-name="matcha"] {
+  filter: invert(61%) sepia(21%) saturate(488%) hue-rotate(56deg)
+    brightness(91%) contrast(91%);
+}
+
+.divAddToCart[data-name="chai latte"] {
+  filter: invert(100%) sepia(22%) saturate(7237%) hue-rotate(296deg)
+    brightness(92%) contrast(98%);
+}
+
+.divAddToCart[data-name="matcha latte"] {
+  filter: invert(92%) sepia(13%) saturate(965%) hue-rotate(23deg)
+    brightness(86%) contrast(87%);
+}
+
+.divAddToCart[data-name="latte"] {
+  filter: invert(77%) sepia(35%) saturate(460%) hue-rotate(354deg)
+    brightness(83%) contrast(89%);
+}
+
+.divAddToCart[data-name="hot coffee"] {
+  filter: invert(78%) sepia(51%) saturate(427%) hue-rotate(329deg)
+    brightness(80%) contrast(86%);
+}
+
+.divAddToCart[data-name="cold coffee"] {
+  filter: invert(95%) sepia(6%) saturate(5316%) hue-rotate(309deg)
+    brightness(112%) contrast(99%);
+}
+
+.divAddToCart[data-name="cookie"] {
+  filter: invert(84%) sepia(70%) saturate(250%) hue-rotate(6deg) brightness(99%)
+    contrast(89%);
+}
+
+.divAddToCart[data-name="donut"] {
+  filter: invert(82%) sepia(20%) saturate(560%) hue-rotate(197deg)
+    brightness(93%) contrast(94%);
+}
+
 /* Referring data attribute(each divTitle) */
 .divTitle[data-name="green"] {
   background-color: #c2d3b5;
@@ -163,7 +236,7 @@ ul {
 }
 
 .divTitle[data-name="flower"] {
-  background-color: #f0efd1;
+  background-color: #e0dd98;
 }
 .divTitle[data-name="chai"] {
   background-color: #e4aeae;
@@ -181,7 +254,7 @@ ul {
   background-color: #e8a88d;
 }
 .divTitle[data-name="matcha latte"] {
-  background-color: #caa46c;
+  background-color: #b6c884;
 }
 .divTitle[data-name="latte"] {
   background-color: #caa46c;
@@ -215,7 +288,7 @@ footer {
   box-sizing: border-box;
   justify-content: space-between;
   background-color: white;
-  height: 150px;
+  height: 180px;
   width: 100vw;
   border-top: 2px #e5e5e5 solid;
 }
@@ -224,6 +297,30 @@ footer {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  overflow: scroll;
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+.cart-container p {
+  box-sizing: border-box;
+  margin: 5px;
+}
+
+.cart-items-div {
+  text-align: start;
+}
+
+.cart-totals-div {
+  text-align: end;
+  position: fixed;
+  right: 18px;
+  bottom: 80px;
+}
+
+/* used nth-child */
+.cart-totals-div :nth-child(3) {
+  border-top: #c4c4c4 solid 1px;
 }
 
 .cart-button-container {
@@ -231,9 +328,22 @@ footer {
   justify-content: space-evenly;
 }
 
-/* .cart-container p {
-  box-sizing: border-box;
-  margin: 10px;
-} */
+.cart-button-container button {
+  width: 35%;
+  height: 35px;
+  font-family: "Yrsa", serif;
+  font-size: 18px;
+  border: none;
+}
+
+.cancel-btn {
+  background-color: #e5e5e5;
+  color: #515151;
+}
+
+.checkout-btn {
+  background-color: #70946f;
+  color: #e5e5e5;
+}
 
 /* MEDIA QUERIES */

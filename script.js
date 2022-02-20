@@ -179,20 +179,18 @@ const displayProducts = (array, category) => {
 };
 displayProducts(products, "all items");
 
-
-
 // Click Events
 
 // Product Category Filters / Selection
-categorySelection.addEventListener("click",(e) => {
+categorySelection.addEventListener("click", (e) => {
   if (e.target.classList.contains("cat-btn")) {
     let clickedCategory = e.target.innerText;
     clearContainerContents(itemsContainer);
-    displayProducts(products,clickedCategory.toLowerCase());
+    displayProducts(products, clickedCategory.toLowerCase());
     console.log(clickedCategory);
   }
   console.dir(e);
-})
+});
 
 // Individual Product Click Events
 itemsContainer.addEventListener("click", (e) => {
@@ -240,7 +238,7 @@ const openCart = () => {
 // Prints users cart items to "cartItemsDiv"
 const printToCart = () => {
   cart.forEach((item, i) => {
-    const newString = `${cart[i].name}: $${cart[i].price.toFixed(2)}`;
+    const newString = `${cart[i].descName}: $${cart[i].price.toFixed(2)}`;
     const newP = document.createElement("p");
     newP.append(newString);
     cartItemsDiv.append(newP);
@@ -251,23 +249,23 @@ const clearContainerContents = (container) => {
   while (container.firstChild) {
     container.removeChild(container.firstChild);
   }
-}
+};
 const calcTotal = () => {
   let subTotal = cart.reduce((pv, cv) => pv + cv.price, 0);
   const taxTotal = subTotal * 0.06;
   const grandTotal = subTotal + taxTotal;
 
-  const subTotalString = `Sub-Total: $${subTotal.toFixed(2)}`;
+  const subTotalString = `sub-total: $${subTotal.toFixed(2)}`;
   const subTotalP = document.createElement("p");
   subTotalP.append(subTotalString);
   cartTotalsDiv.append(subTotalP);
 
-  const taxTotalString = `Tax-Total: $${taxTotal.toFixed(2)}`;
+  const taxTotalString = `tax-total: $${taxTotal.toFixed(2)}`;
   const taxTotalP = document.createElement("p");
   taxTotalP.append(taxTotalString);
   cartTotalsDiv.append(taxTotalP);
 
-  const grandTotalString = `GRand-Total: $${grandTotal.toFixed(2)}`;
+  const grandTotalString = `grand-total: $${grandTotal.toFixed(2)}`;
   const grandTotalP = document.createElement("p");
   grandTotalP.append(grandTotalString);
   cartTotalsDiv.append(grandTotalP);
