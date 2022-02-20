@@ -123,6 +123,7 @@ const allItemsClick = document.querySelector(".snack-btn");
 const itemsContainer = document.querySelector(".items-container");
 const cartContainer = document.querySelector(".cart-container");
 const cartItemsDiv = document.querySelector(".cart-items-div");
+const cartTotalsDiv = document.querySelector(".cart-totals-div");
 const cart = [];
 
 // Function that displays products in .item-container. Checks to see if the category is "all" (which is default) and if not it filters items by the category selected. This is all built and then appended to .items-container.
@@ -185,17 +186,21 @@ itemsContainer.addEventListener("click", (e) => {
       return product.name === e.target.dataset.name;
     });
   };
-// Listens to item container for clicks on elements with "divAddToCart" class ; pushes item to cart if clicked
+  // Listens to item container for clicks on elements with "divAddToCart" class ; pushes item to cart if clicked
   if (e.target.classList.contains("divAddToCart")) {
     // Finds the product that matches the buttons data-name
     cart.push(foundProduct());
     console.log(cart);
     openCart();
-// While there is a "first child" in cartIemsDiv, remove it 
-    while (cartItemsDiv.firstChild){
+    // While there is a "first child" in cartIemsDiv, remove it
+    while (cartItemsDiv.firstChild) {
       cartItemsDiv.removeChild(cartItemsDiv.firstChild);
     }
+    while (cartTotalsDiv.firstChild) {
+      cartTotalsDiv.removeChild(cartTotalsDiv.firstChild);
+    }
     printToCart();
+    calcTotal();
   }
   // Listens for clicks on divTitle / divInfo and hides / unhides description
   if (
@@ -220,10 +225,33 @@ const openCart = () => {
   }
 };
 const printToCart = () => {
-  cart.forEach((item,i)=> {
+  cart.forEach((item, i) => {
     const newString = `${cart[i].name}: $${cart[i].price.toFixed(2)}`;
     const newP = document.createElement("p");
     newP.append(newString);
     cartItemsDiv.append(newP);
-  })
+  });
+};
+const calcTotal = () => {
+  let subTotal = cart.reduce((pv, cv) => pv + cv.price, 0);
+  //console.log(subTotal);
+  const taxTotal = subTotal * 0.06;
+  //console.log(taxTotal.toFixed(2));
+  const grandTotal = subTotal + taxTotal;
+  //console.log(grandTotal);
+
+  const subTotalString = `Sub-Total: $${subTotal.toFixed(2)}`;
+  const subTotalP = document.createElement("p");
+  subTotalP.append(subTotalString);
+  cartTotalsDiv.append(subTotalP);
+
+  const taxTotalString = `Tax-Total: $${taxTotal.toFixed(2)}`;
+  const taxTotalP = document.createElement("p");
+  taxTotalP.append(taxTotalString);
+  cartTotalsDiv.append(taxTotalP);
+
+  const grandTotalString = `GRand-Total: $${grandTotal.toFixed(2)}`;
+  const grandTotalP = document.createElement("p");
+  grandTotalP.append(grandTotalString);
+  cartTotalsDiv.append(grandTotalP);
 };
