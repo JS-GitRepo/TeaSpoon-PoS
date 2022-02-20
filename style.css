@@ -4,8 +4,13 @@ main,
 header h1,
 footer p,
 main ul {
-  margin: 0;
-  padding: 0;
+  margin: 0px;
+  padding: 0px;
+}
+
+.cart-items-div p {
+  margin: 0px;
+  padding: 0px;
 }
 
 /* GENERAL */
@@ -293,29 +298,34 @@ footer {
   border-top: 2px #e5e5e5 solid;
 }
 
+.cart-container p {
+  box-sizing: border-box;
+  margin: 1px;
+}
+
 .cart-contents-container {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  overflow: scroll;
   margin-bottom: 10px;
   font-size: 18px;
 }
 
-.cart-container p {
-  box-sizing: border-box;
-  margin: 5px;
-}
-
 .cart-items-div {
+  display: flex;
+  flex-direction: column;
+  max-height: 100px;
   text-align: start;
+  overflow: scroll;
+  box-sizing: border-box;
+  padding-right: 20px;
 }
 
 .cart-totals-div {
   text-align: end;
   position: fixed;
   right: 18px;
-  bottom: 80px;
+  bottom: 100px;
 }
 
 /* used nth-child */

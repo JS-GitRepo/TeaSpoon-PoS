@@ -98,7 +98,7 @@ const products = [
   {
     name: "cookie",
     category: "snack",
-    descName: "chocolate chip cookie",
+    descName: "choc chip cookie",
     desc: "note: chocolate, chip, cookie!",
     img: "assets/img/chocChipCookie.png",
     price: 2,
@@ -106,7 +106,7 @@ const products = [
   {
     name: "donut",
     category: "snack",
-    descName: "cookie and cream donut",
+    descName: "c&c donut",
     desc: "note: cookies, cream, donut!",
     img: "assets/img/cncDonut.png",
     price: 2,
@@ -204,7 +204,7 @@ itemsContainer.addEventListener("click", (e) => {
   // Listens to item container for clicks on elements with "divAddToCart" class ; pushes item to cart if clicked
   if (e.target.classList.contains("divAddToCart")) {
     // Finds the product that matches the buttons data-name
-    cart.push(foundProduct());
+    cart.unshift(foundProduct());
     console.log(cart);
     openCart();
     // While there is a "first child" in cartIemsDiv, remove it
