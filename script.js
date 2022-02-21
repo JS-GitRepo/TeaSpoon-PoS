@@ -123,12 +123,14 @@ const snackClick = document.querySelector(".snack-btn");
 const allItemsClick = document.querySelector(".snack-btn");
 const itemsContainer = document.querySelector(".items-container");
 const cartContainer = document.querySelector(".cart-container");
-const cartContentsContainer = document.querySelector(".cart-contents-container");
+const cartContentsContainer = document.querySelector(
+  ".cart-contents-container"
+);
 const cartItemsDiv = document.querySelector(".cart-items-div");
 const cartTotalsDiv = document.querySelector(".cart-totals-div");
 const cartBtnContainer = document.querySelector(".cart-button-container");
 const checkoutContainer = document.querySelector(".checkout-container");
-const paymentMethodDiv = document.querySelector(".payment-method-div")
+const paymentMethodDiv = document.querySelector(".payment-method-div");
 const paymentDivOne = document.querySelector(".payment-div-one");
 const paymentDivTwo = document.querySelector(".payment-div-two");
 const payNowButton = document.querySelector(".pay-now-btn");
@@ -141,7 +143,6 @@ let taxTotal = 0;
 let grandTotal = 0;
 let paymentAmount = 0;
 let receiptMessage = ``;
-
 
 // // >>>>>>>>>>>>>>>>>>>>>>>> Display Products <<<<<<<<<<<<<<<<<<<<<<<<
 
@@ -178,7 +179,10 @@ const displayProducts = (array, category) => {
     // Info icon
     divInfo.classList.add("divInfo");
     divInfo.setAttribute("src", "assets/img/infoIcon.svg");
-    divInfo.setAttribute("alt", `${product.descName} information and description`);
+    divInfo.setAttribute(
+      "alt",
+      `${product.descName} information and description`
+    );
     // shows product decription
     divDesc.classList.add("divDesc");
     divDesc.classList.add("hide");
@@ -199,8 +203,6 @@ const displayProducts = (array, category) => {
 };
 displayProducts(products, "all items");
 
-
-
 // >>>>>>>>>>>>>>>>>>>>>>>> Click Events <<<<<<<<<<<<<<<<<<<<<<<<
 // Product Category Filters / Selection
 categorySelection.addEventListener("click", (e) => {
@@ -210,13 +212,13 @@ categorySelection.addEventListener("click", (e) => {
     displayProducts(products, clickedCategory.toLowerCase());
     // console.log(clickedCategory);
     // console.dir(categorySelection.childNodes[1].children);
-    categorySelection.childNodes[1].childNodes.forEach((element)=> {
+    categorySelection.childNodes[1].childNodes.forEach((element) => {
       if (element.childNodes[1]) {
         element.children[0].classList.remove("highlighted-cat");
       }
-    })
-  };
-    e.target.classList.add("highlighted-cat");
+    });
+  }
+  e.target.classList.add("highlighted-cat");
   // console.dir(e);
 });
 
@@ -229,7 +231,7 @@ itemsContainer.addEventListener("click", (e) => {
       return product.name === e.target.dataset.name;
     });
   };
-    // Listens to item container for clicks on elements with "divAddToCart" class ; pushes item to cart if clicked
+  // Listens to item container for clicks on elements with "divAddToCart" class ; pushes item to cart if clicked
   if (e.target.classList.contains("divAddToCart")) {
     // Finds the product that matches the buttons data-name
     cart.unshift(foundProduct());
@@ -257,15 +259,15 @@ itemsContainer.addEventListener("click", (e) => {
 });
 
 // Cart Button Events
-cartContainer.addEventListener("click",(e)=> {
-  if(e.target.classList.contains("cancel-btn")) {
+cartContainer.addEventListener("click", (e) => {
+  if (e.target.classList.contains("cancel-btn")) {
     // cart = [];
     // cartContainer.classList.add("hide");
     // checkoutContainer.classList.add("hide");
     location.reload();
   }
-  if(e.target.classList.contains("checkout-btn")) {
-    if(e.target.textContent === "checkout") {
+  if (e.target.classList.contains("checkout-btn")) {
+    if (e.target.textContent === "checkout") {
       checkoutContainer.classList.remove("hide");
       cartToCheckout();
     } else if (e.target.textContent === "cash") {
@@ -276,23 +278,25 @@ cartContainer.addEventListener("click",(e)=> {
       console.log("Test");
     }
   }
-  if(e.target.classList.contains("card-btn")) {
+  if (e.target.classList.contains("card-btn")) {
     clearContainerContents(paymentDivOne);
     clearContainerContents(paymentDivTwo);
     paymentCheckout();
     cardCheckout();
   }
-  if(e.target.classList.contains("pay-now-btn")) {
-    if(e.target.dataset.name === "cash") {
-      if(cashValidation()) {
-        receiptMessage =  `Your change due is: $${(paymentAmount-grandTotal).toFixed(2)}`;
+  if (e.target.classList.contains("pay-now-btn")) {
+    if (e.target.dataset.name === "cash") {
+      if (cashValidation()) {
+        receiptMessage = `Your change due is: $${(
+          paymentAmount - grandTotal
+        ).toFixed(2)}`;
         console.log(cashValidation());
         toReceiptScreen();
       } else {
         paymentInvalidMsg();
       }
     } else if (e.target.dataset.name === "card") {
-      if(cardValidation()) {
+      if (cardValidation()) {
         console.log(cardValidation());
         toReceiptScreen();
       } else {
@@ -300,10 +304,8 @@ cartContainer.addEventListener("click",(e)=> {
       }
     }
   }
-})
-// Checkout event listener 
-
-
+});
+// Checkout event listener
 
 // >>>>>>>>>>>>>>>>>>>>>>>> Functions <<<<<<<<<<<<<<<<<<<<<<<<
 // Opens / unhides shopping cart
@@ -321,13 +323,13 @@ const printToCart = () => {
     cartItemsDiv.append(newP);
   });
 };
-// Clears contents of a given container 
+// Clears contents of a given container
 const clearContainerContents = (container) => {
   while (container.firstChild) {
     container.removeChild(container.firstChild);
   }
 };
-// Calculates and inserts cart totals 
+// Calculates and inserts cart totals
 const calcTotal = () => {
   subTotal = cart.reduce((pv, cv) => pv + cv.price, 0);
   taxTotal = subTotal * 0.06;
@@ -352,7 +354,7 @@ const calcTotal = () => {
 const cartToCheckout = () => {
   cartContainer.style.height = "400px";
   cartItemsDiv.style.maxHeight = "300px";
-  let newBtn = document.createElement("button")
+  let newBtn = document.createElement("button");
   newBtn.style.backgroundColor = "#215B72";
   newBtn.style.color = "#e5e5e5";
   newBtn.textContent = "card";
@@ -360,8 +362,7 @@ const cartToCheckout = () => {
   newBtn.classList.add("btn");
   cartBtnContainer.querySelector(".checkout-btn").textContent = "cash";
   cartBtnContainer.append(newBtn);
-
-}
+};
 // Shows payment div to user, where either cash or credit can be displayed
 const paymentCheckout = () => {
   const newPayNowButton = document.createElement("button");
@@ -371,27 +372,29 @@ const paymentCheckout = () => {
   newPayNowButton.classList.add("btn");
   newPayNowButton.classList.add("pay-now-btn");
   paymentDivTwo.append(newPayNowButton);
-}
+};
 // Displays cash checkout
 const cashCheckout = () => {
   const newCashInput = document.createElement("input");
   const newCashLabel = document.createElement("label");
-  newCashInput.setAttribute("id","cashPay");
-  newCashInput.setAttribute("name","cashPay");
-  newCashInput.setAttribute("type","number");
-  newCashInput.setAttribute("min","0.00");
-  newCashInput.setAttribute("max","10000.00");
-  newCashInput.setAttribute("step","0.01");
-  newCashInput.setAttribute("placeholder","0.00");
+  newCashInput.setAttribute("id", "cashPay");
+  newCashInput.setAttribute("name", "cashPay");
+  newCashInput.setAttribute("type", "number");
+  newCashInput.setAttribute("min", "0.00");
+  newCashInput.setAttribute("max", "10000.00");
+  newCashInput.setAttribute("step", "0.01");
+  newCashInput.setAttribute("placeholder", "0.00");
   newCashInput.setAttribute("required", "");
-  newCashLabel.setAttribute("for","cashPay");
+  newCashLabel.setAttribute("for", "cashPay");
   newCashLabel.textContent = "Cash Payment Amount: $";
   paymentDivOne.append(newCashLabel);
   paymentDivOne.append(newCashInput);
-  paymentMethodDiv.querySelector(".pay-now-btn").setAttribute("data-name","cash");
+  paymentMethodDiv
+    .querySelector(".pay-now-btn")
+    .setAttribute("data-name", "cash");
   // payNowButton.setAttribute("data-name","cash")
   console.log(paymentMethodDiv.querySelector(".pay-now-btn"));
-}
+};
 // Displays card checkout
 const cardCheckout = () => {
   let newCardDiv = document.createElement("div");
@@ -403,59 +406,63 @@ const cardCheckout = () => {
   const newExpireLabel = document.createElement("label");
   const newCVVInput = document.createElement("input");
   const newCVVLabel = document.createElement("label");
-  newCardInput.setAttribute("id","cardPay");
-  newCardInput.setAttribute("type","number");
-  newCardInput.setAttribute("name","cardPay");
-  newCardInput.setAttribute("max","9999999999999999");
+  newCardInput.setAttribute("id", "cardPay");
+  newCardInput.setAttribute("type", "number");
+  newCardInput.setAttribute("name", "cardPay");
+  newCardInput.setAttribute("max", "9999999999999999");
   newCardInput.setAttribute("required", "");
-  newCardLabel.setAttribute("for","cardPay");
-  newCardLabel.textContent = "card number: "
-  newExpireInput.setAttribute("id","cardExpire");
-  newExpireInput.setAttribute("type","date");
-  newExpireInput.setAttribute("name","cardExpire");
+  newCardLabel.setAttribute("for", "cardPay");
+  newCardLabel.textContent = "card number: ";
+  newExpireInput.setAttribute("id", "cardExpire");
+  newExpireInput.setAttribute("type", "date");
+  newExpireInput.setAttribute("name", "cardExpire");
   newExpireInput.setAttribute("required", "");
-  newExpireLabel.setAttribute("for","cardExpire");
-  newExpireLabel.textContent = "expiration: "
-  newCVVInput.setAttribute("id","cardCVV");
-  newCVVInput.setAttribute("type","number");
-  newCVVInput.setAttribute("name","cardCVV");
-  newCVVInput.setAttribute("max","999");
+  newExpireLabel.setAttribute("for", "cardExpire");
+  newExpireLabel.textContent = "expiration: ";
+  newCVVInput.setAttribute("id", "cardCVV");
+  newCVVInput.setAttribute("type", "number");
+  newCVVInput.setAttribute("name", "cardCVV");
+  newCVVInput.setAttribute("max", "999");
   newCVVInput.setAttribute("required", "");
-  newCVVLabel.setAttribute("for","cardCVV");
-  newCVVLabel.textContent = "cvv: "
+  newCVVLabel.setAttribute("for", "cardCVV");
+  newCVVLabel.textContent = "cvv: ";
   newCardDiv.append(newCardLabel);
   newCardDiv.append(newCardInput);
-  newExpireDiv.append(newExpireLabel)
-  newExpireDiv.append(newExpireInput)
+  newExpireDiv.append(newExpireLabel);
+  newExpireDiv.append(newExpireInput);
   newCVVDiv.append(newCVVLabel);
   newCVVDiv.append(newCVVInput);
   paymentDivOne.append(newCardDiv);
   paymentDivOne.append(newExpireDiv);
   paymentDivOne.append(newCVVDiv);
-  paymentMethodDiv.querySelector(".pay-now-btn").setAttribute("data-name","card");
+  paymentMethodDiv
+    .querySelector(".pay-now-btn")
+    .setAttribute("data-name", "card");
   console.log(paymentMethodDiv.querySelector(".pay-now-btn"));
-}
+};
 
 // Cash validation
 const cashValidation = () => {
   paymentAmount = document.querySelector("#cashPay").value;
   return paymentAmount >= grandTotal;
-}
+};
 const cardValidation = () => {
   let today = new Date();
   let cardExpireInput = new Date(document.querySelector("#cardExpire").value);
   paymentAmount = grandTotal;
-  return ((document.querySelector("#cardPay").value).length === 16) 
-  &&  ((document.querySelector("#cardCVV").value).length === 3)
-  &&  (cardExpireInput.getTime() >= today.getTime());
-}
+  return (
+    document.querySelector("#cardPay").value.length === 16 &&
+    document.querySelector("#cardCVV").value.length === 3 &&
+    cardExpireInput.getTime() >= today.getTime()
+  );
+};
 // Payment was invalid; do not proceed
 const paymentInvalidMsg = () => {
   alert("Invalid or insufficient payment. Please try again!");
-}
+};
 // Proceed to receipt screen
 const toReceiptScreen = () => {
-  const newDiv = document.createElement("div")
+  const newDiv = document.createElement("div");
   const yourPayment = document.createElement("p");
   const receiptMessageP = document.createElement("p");
   const discount = document.createElement("p");
@@ -463,12 +470,16 @@ const toReceiptScreen = () => {
   cartContainer.removeChild(paymentMethodDiv);
   cartContainer.style.height = "600px";
   cartItemsDiv.style.maxHeight = "400px";
-  yourPayment.append(`Your payment was: $${Number(paymentAmount).toFixed(2)}.`)
+  yourPayment.append(`Your payment was: $${Number(paymentAmount).toFixed(2)}.`);
   receiptMessageP.append(receiptMessage);
-  discount.append(`You earned ${Math.floor((Math.random()*4)+1)*5}% off your next order!`);
-  newDiv.classList.add("receipt-info")
+  discount.append(
+    `You earned ${Math.floor(Math.random() * 4 + 1) * 5}% off your next order!`
+  );
+  newDiv.classList.add("receipt-info");
   homeBtn.textContent = "home";
   homeBtn.classList.add("cancel-btn");
+  homeBtn.classList.add("btn");
+  homeBtn.classList.add("home-btn");
   newDiv.append(yourPayment);
   newDiv.append(receiptMessageP);
   newDiv.append(discount);
@@ -477,4 +488,4 @@ const toReceiptScreen = () => {
   clearContainerContents(cartBtnContainer);
   cartBtnContainer.append(homeBtn);
   cartContentsContainer.style.flex = "2";
-}
+};
