@@ -342,7 +342,7 @@ footer {
   justify-content: space-evenly;
 }
 
-.cart-button-container button {
+.btn {
   width: 35%;
   height: 35px;
   font-family: "Yrsa", serif;
@@ -372,7 +372,30 @@ footer {
 }
 
 .payment-method-div {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  /* display: flex;
+  flex-direction: column; */
   flex: 3;
+}
+
+.pay-now-btn {
+  background-color: #f3f58a;
+  color: #6a6861;
+  border: 2px #6a6861 solid;
+  font-weight: 500;
+  margin-bottom: 50px;
+  /* #e6e88d */
+  /* #eec97f */
+}
+
+.payment-div-one {
+  margin-top: 40px;
+}
+
+.payment-div-one label {
+  font-size: 20px;
 }
 
 /* MEDIA QUERIES */

@@ -114,6 +114,7 @@ const products = [
 ];
 
 //// >>>>>>>>>>>>>>>>>>>>>>>> Variables <<<<<<<<<<<<<<<<<<<<<<<<
+// Document Queries
 const categorySelection = document.querySelector(".category-selection");
 const teaClick = document.querySelector(".tea-btn");
 const coffeeClick = document.querySelector(".coffee-btn");
@@ -126,9 +127,17 @@ const cartItemsDiv = document.querySelector(".cart-items-div");
 const cartTotalsDiv = document.querySelector(".cart-totals-div");
 const cartBtnContainer = document.querySelector(".cart-button-container");
 const checkoutContainer = document.querySelector(".checkout-container");
-const paymentMethodDiv = cartContainer.querySelector(".payment-method-div");
+const paymentMethodDiv = document.querySelector(".payment-method-div")
+const paymentDivOne = document.querySelector(".payment-div-one");
+const paymentDivTwo = document.querySelector(".payment-div-two");
+const payNowButton = document.querySelector(".pay-now-btn")
 
+// Functionality Variables
 let cart = [];
+let subTotal = 0;
+let taxTotal = 0;
+let grandTotal = 0;
+let paymentAmount = 0;
 
 
 // // >>>>>>>>>>>>>>>>>>>>>>>> Display Products <<<<<<<<<<<<<<<<<<<<<<<<
@@ -213,7 +222,6 @@ itemsContainer.addEventListener("click", (e) => {
     cart.unshift(foundProduct());
     console.log(cart);
     openCart();
-    // While there is a "first child" in cartIemsDiv, remove it
     clearContainerContents(cartItemsDiv);
     clearContainerContents(cartTotalsDiv);
     printToCart();
@@ -248,10 +256,30 @@ cartContainer.addEventListener("click",(e)=> {
       checkoutContainer.classList.remove("hide");
       cartToCheckout();
     } else if (e.target.textContent === "cash") {
+      clearContainerContents(paymentDivOne);
+      clearContainerContents(paymentDivTwo);
       paymentCheckout();
       cashCheckout();
       console.log("Test");
     }
+  }
+  if(e.target.classList.contains("card-btn")) {
+    clearContainerContents(paymentDivOne);
+    clearContainerContents(paymentDivTwo);
+    paymentCheckout();
+    cardCheckout();
+  }
+  if(e.target.classList.contains("pay-now-btn")) {
+    if(e.target.dataset.name === "cash") {
+      if(cashValidation()) {
+        console.log(cashValidation());
+      } else {
+        paymentInvalidMsg();
+      }
+    } 
+    // else if (e.target.dataset.name === "card") {
+
+    // }
   }
 })
 // Checkout event listener 
@@ -282,9 +310,9 @@ const clearContainerContents = (container) => {
 };
 // Calculates and inserts cart totals 
 const calcTotal = () => {
-  let subTotal = cart.reduce((pv, cv) => pv + cv.price, 0);
-  const taxTotal = subTotal * 0.06;
-  const grandTotal = subTotal + taxTotal;
+  subTotal = cart.reduce((pv, cv) => pv + cv.price, 0);
+  taxTotal = subTotal * 0.06;
+  grandTotal = subTotal + taxTotal;
 
   const subTotalString = `sub-total: $${subTotal.toFixed(2)}`;
   const subTotalP = document.createElement("p");
@@ -309,13 +337,23 @@ const cartToCheckout = () => {
   newBtn.style.backgroundColor = "#215B72";
   newBtn.style.color = "#e5e5e5";
   newBtn.textContent = "card";
+  newBtn.classList.add("card-btn");
+  newBtn.classList.add("btn");
   cartBtnContainer.querySelector(".checkout-btn").textContent = "cash";
   cartBtnContainer.append(newBtn);
+
 }
+// Shows payment div to user, where either cash or credit can be displayed
 const paymentCheckout = () => {
+  const newPayNowButton = document.createElement("button");
   cartItemsDiv.style.maxHeight = "70px";
   paymentMethodDiv.classList.remove("hide");
+  newPayNowButton.textContent = "pay now";
+  newPayNowButton.classList.add("btn");
+  newPayNowButton.classList.add("pay-now-btn");
+  paymentDivTwo.append(newPayNowButton);
 }
+// Displays cash checkout
 const cashCheckout = () => {
   const newCashInput = document.createElement("input");
   const newCashLabel = document.createElement("label");
@@ -325,9 +363,65 @@ const cashCheckout = () => {
   newCashInput.setAttribute("min","0.00");
   newCashInput.setAttribute("max","10000.00");
   newCashInput.setAttribute("step","0.01");
-  newCashInput.setAttribute("placeholder","$0.00");
+  newCashInput.setAttribute("placeholder","0.00");
+  newCashInput.setAttribute("required", "");
   newCashLabel.setAttribute("for","cashPay");
-  newCashLabel.textContent = "Cash Payment Amount:";
-  paymentMethodDiv.append(newCashInput);
-  paymentMethodDiv.append(newCashLabel);
+  newCashLabel.textContent = "Cash Payment Amount: $";
+  paymentDivOne.append(newCashLabel);
+  paymentDivOne.append(newCashInput);
+  paymentMethodDiv.querySelector(".pay-now-btn").setAttribute("data-name","cash");
+  // payNowButton.setAttribute("data-name","cash")
+  console.log(paymentMethodDiv.querySelector(".pay-now-btn"));
+}
+// Displays card checkout
+const cardCheckout = () => {
+  let newCardDiv = document.createElement("div");
+  let newExpireDiv = document.createElement("div");
+  let newCVVDiv = document.createElement("div");
+  const newCardInput = document.createElement("input");
+  const newCardLabel = document.createElement("label");
+  const newExpireInput = document.createElement("input");
+  const newExpireLabel = document.createElement("label");
+  const newCVVInput = document.createElement("input");
+  const newCVVLabel = document.createElement("label");
+  newCardInput.setAttribute("id","cardPay");
+  newCardInput.setAttribute("type","number");
+  newCardInput.setAttribute("name","cardPay");
+  newCardInput.setAttribute("max","9999999999999999");
+  newCardInput.setAttribute("required", "");
+  newCardLabel.setAttribute("for","cardPay");
+  newCardLabel.textContent = "card number: "
+  newExpireInput.setAttribute("id","cardExpire");
+  newExpireInput.setAttribute("type","date");
+  newExpireInput.setAttribute("name","cardExpire");
+  newExpireInput.setAttribute("required", "");
+  newExpireLabel.setAttribute("for","cardExpire");
+  newExpireLabel.textContent = "expiration: "
+  newCVVInput.setAttribute("id","cardCVV");
+  newCVVInput.setAttribute("type","number");
+  newCVVInput.setAttribute("name","cardCVV");
+  newCVVInput.setAttribute("max","999");
+  newCVVInput.setAttribute("required", "");
+  newCVVLabel.setAttribute("for","cardCVV");
+  newCVVLabel.textContent = "cvv: "
+  newCardDiv.append(newCardLabel);
+  newCardDiv.append(newCardInput);
+  newExpireDiv.append(newExpireLabel)
+  newExpireDiv.append(newExpireInput)
+  newCVVDiv.append(newCVVLabel);
+  newCVVDiv.append(newCVVInput);
+  paymentDivOne.append(newCardDiv);
+  paymentDivOne.append(newExpireDiv);
+  paymentDivOne.append(newCVVDiv);
+  paymentMethodDiv.querySelector(".pay-now-btn").setAttribute("data-name","card");
+  console.log(paymentMethodDiv.querySelector(".pay-now-btn"));
+}
+
+// Cash validation
+const cashValidation = () => {
+  paymentAmount = document.querySelector("#cashPay").value;
+  return paymentAmount >= grandTotal;
+}
+const paymentInvalidMsg = () => {
+  alert("Invalid or insufficient payment. Please try again!");
 }
