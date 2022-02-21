@@ -211,7 +211,9 @@ categorySelection.addEventListener("click", (e) => {
     // console.log(clickedCategory);
     // console.dir(categorySelection.childNodes[1].children);
     categorySelection.childNodes[1].childNodes.forEach((element)=> {
-      console.dir(element.childNodes[1]);
+      if (element.childNodes[1]) {
+        element.children[0].classList.remove("highlighted-cat");
+      }
     })
   };
     e.target.classList.add("highlighted-cat");
