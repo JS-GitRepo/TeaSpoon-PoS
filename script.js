@@ -208,9 +208,14 @@ categorySelection.addEventListener("click", (e) => {
     let clickedCategory = e.target.innerText;
     clearContainerContents(itemsContainer);
     displayProducts(products, clickedCategory.toLowerCase());
-    console.log(clickedCategory);
-  }
-  console.dir(e);
+    // console.log(clickedCategory);
+    // console.dir(categorySelection.childNodes[1].children);
+    categorySelection.childNodes[1].childNodes.forEach((element)=> {
+      console.dir(element.childNodes[1]);
+    })
+  };
+    e.target.classList.add("highlighted-cat");
+  // console.dir(e);
 });
 
 // Individual Product Click Events

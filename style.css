@@ -87,6 +87,13 @@ ul {
   align-items: center;
 }
 
+.category-list .highlighted-cat {
+  border:3px solid #70946f;
+  color: #70946f;
+  font-weight: bold;
+  background-color: #9ce499;
+}
+
 .allItems-li {
   width: 98%;
 }
