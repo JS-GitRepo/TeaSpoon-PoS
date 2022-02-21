@@ -333,7 +333,8 @@ footer {
   flex-direction: column;
   max-height: 100px;
   text-align: start;
-  overflow: scroll;
+  overflow-y: scroll;
+  scrollbar-width: thin;
   box-sizing: border-box;
   padding-right: 20px;
 }
