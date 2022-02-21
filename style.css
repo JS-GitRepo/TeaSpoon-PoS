@@ -312,6 +312,7 @@ footer {
   margin-bottom: 10px;
   font-size: 18px;
   height: 100%;
+  max-height: 400px;
 }
 
 .cart-items-div {
@@ -396,6 +397,14 @@ footer {
 
 .payment-div-one label {
   font-size: 20px;
+}
+
+.receipt-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
 }
 
 /* MEDIA QUERIES */

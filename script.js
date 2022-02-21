@@ -123,6 +123,7 @@ const snackClick = document.querySelector(".snack-btn");
 const allItemsClick = document.querySelector(".snack-btn");
 const itemsContainer = document.querySelector(".items-container");
 const cartContainer = document.querySelector(".cart-container");
+const cartContentsContainer = document.querySelector(".cart-contents-container");
 const cartItemsDiv = document.querySelector(".cart-items-div");
 const cartTotalsDiv = document.querySelector(".cart-totals-div");
 const cartBtnContainer = document.querySelector(".cart-button-container");
@@ -130,7 +131,8 @@ const checkoutContainer = document.querySelector(".checkout-container");
 const paymentMethodDiv = document.querySelector(".payment-method-div")
 const paymentDivOne = document.querySelector(".payment-div-one");
 const paymentDivTwo = document.querySelector(".payment-div-two");
-const payNowButton = document.querySelector(".pay-now-btn")
+const payNowButton = document.querySelector(".pay-now-btn");
+const receiptContainer = document.querySelector(".receipt-container");
 
 // Functionality Variables
 let cart = [];
@@ -138,6 +140,7 @@ let subTotal = 0;
 let taxTotal = 0;
 let grandTotal = 0;
 let paymentAmount = 0;
+let receiptMessage = ``;
 
 
 // // >>>>>>>>>>>>>>>>>>>>>>>> Display Products <<<<<<<<<<<<<<<<<<<<<<<<
@@ -160,6 +163,7 @@ const displayProducts = (array, category) => {
     newDiv.classList.add("product");
     // Products Main image
     divImg.setAttribute("src", product.img);
+    divImg.setAttribute("alt", product.descName);
     divImg.classList.add("divImg");
     // Product Nameplate / Info Link
     divTitle.setAttribute("href", "#");
@@ -169,10 +173,12 @@ const displayProducts = (array, category) => {
     // Add to Cart icon / link
     divAddToCart.classList.add("divAddToCart");
     divAddToCart.setAttribute("src", "assets/img/plusSign.svg");
+    divAddToCart.setAttribute("alt", `Add ${product.descName} to cart`);
     divAddToCart.setAttribute("data-name", product.name);
     // Info icon
     divInfo.classList.add("divInfo");
     divInfo.setAttribute("src", "assets/img/infoIcon.svg");
+    divInfo.setAttribute("alt", `${product.descName} information and description`);
     // shows product decription
     divDesc.classList.add("divDesc");
     divDesc.classList.add("hide");
@@ -272,14 +278,20 @@ cartContainer.addEventListener("click",(e)=> {
   if(e.target.classList.contains("pay-now-btn")) {
     if(e.target.dataset.name === "cash") {
       if(cashValidation()) {
+        receiptMessage =  `Your change due is: $${(paymentAmount-grandTotal).toFixed(2)}`;
         console.log(cashValidation());
+        toReceiptScreen();
       } else {
         paymentInvalidMsg();
       }
-    } 
-    // else if (e.target.dataset.name === "card") {
-
-    // }
+    } else if (e.target.dataset.name === "card") {
+      if(cardValidation()) {
+        console.log(cardValidation());
+        toReceiptScreen();
+      } else {
+        paymentInvalidMsg();
+      }
+    }
   }
 })
 // Checkout event listener 
@@ -422,6 +434,40 @@ const cashValidation = () => {
   paymentAmount = document.querySelector("#cashPay").value;
   return paymentAmount >= grandTotal;
 }
+const cardValidation = () => {
+  let today = new Date();
+  let cardExpireInput = new Date(document.querySelector("#cardExpire").value);
+  paymentAmount = grandTotal;
+  return ((document.querySelector("#cardPay").value).length === 16) 
+  &&  ((document.querySelector("#cardCVV").value).length === 3)
+  &&  (cardExpireInput.getTime() >= today.getTime());
+}
+// Payment was invalid; do not proceed
 const paymentInvalidMsg = () => {
   alert("Invalid or insufficient payment. Please try again!");
+}
+// Proceed to receipt screen
+const toReceiptScreen = () => {
+  const newDiv = document.createElement("div")
+  const yourPayment = document.createElement("p");
+  const receiptMessageP = document.createElement("p");
+  const discount = document.createElement("p");
+  const homeBtn = document.createElement("button");
+  cartContainer.removeChild(paymentMethodDiv);
+  cartContainer.style.height = "600px";
+  cartItemsDiv.style.maxHeight = "400px";
+  yourPayment.append(`Your payment was: $${Number(paymentAmount).toFixed(2)}.`)
+  receiptMessageP.append(receiptMessage);
+  discount.append(`You earned ${Math.floor((Math.random()*4)+1)*5}% off your next order!`);
+  newDiv.classList.add("receipt-info")
+  homeBtn.textContent = "home";
+  homeBtn.classList.add("cancel-btn");
+  newDiv.append(yourPayment);
+  newDiv.append(receiptMessageP);
+  newDiv.append(discount);
+  // cartContainer.append(newDiv);
+  cartContainer.insertBefore(newDiv, cartContainer.children[1]);
+  clearContainerContents(cartBtnContainer);
+  cartBtnContainer.append(homeBtn);
+  cartContentsContainer.style.flex = "2";
 }
