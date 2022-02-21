@@ -55,12 +55,12 @@ h1 {
 
 main {
   margin-top: 100px;
-  display: flex;
-  justify-content: center;
+  /* display: flex; */
+  /* justify-content: center; */
 }
 
 .category-selection {
-  padding-right: 30px;
+  padding: 0 30px;
 }
 
 .category-selection ul {
@@ -457,6 +457,8 @@ footer {
     flex: 1;
     position: sticky;
     margin-top: 30px;
+    padding: 0px;
+    padding-right: 30px;
   }
 
   .category-selection ul {
